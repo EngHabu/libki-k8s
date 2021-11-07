@@ -1,0 +1,41 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: libki
+  namespace: libki
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: libki
+              image: libki/libki-server:latest
+              command:
+                - ./script/cronjobs/libki.pl
+              envFrom:
+                - configMapRef:
+                    name: libki-config
+          restartPolicy: Never
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: libki-nightly
+  namespace: libki
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: libki
+              image: libki/libki-server:latest
+              command:
+                - ./script/cronjobs/libki_nightly.pl
+              envFrom:
+              - configMapRef:
+                    name: libki-config
+          restartPolicy: Never
