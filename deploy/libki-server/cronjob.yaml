@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: libki
+  name: libki-server-sync
   namespace: libki
 spec:
   schedule: "* * * * *"
@@ -14,6 +14,13 @@ spec:
               image: libki/libki-server:latest
               command:
                 - ./script/cronjobs/libki.pl
+              resources:
+                requests:
+                  memory: 100Mi
+                  cpu: 100m
+                limits:
+                  memory: 500Mi
+                  cpu: 200m
               envFrom:
                 - configMapRef:
                     name: libki-config
@@ -35,7 +42,14 @@ spec:
               image: libki/libki-server:latest
               command:
                 - ./script/cronjobs/libki_nightly.pl
+              resources:
+                requests:
+                  memory: 100Mi
+                  cpu: 100m
+                limits:
+                  memory: 500Mi
+                  cpu: 200m
               envFrom:
-              - configMapRef:
+                - configMapRef:
                     name: libki-config
           restartPolicy: Never

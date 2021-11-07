@@ -3,5 +3,5 @@ kind: Kustomization
 
 resources:
     - deployment.yaml
-    - cronjob.yaml
+    # - cronjob.yaml
     - ingress.yaml
