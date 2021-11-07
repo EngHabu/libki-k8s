@@ -1,0 +1,18 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  labels:
+    app: libki
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              serviceName: kubernetes-dashboard
+              servicePort: 443
+            path: /dashboard

@@ -5,3 +5,4 @@ resources:
   - service_account.yaml
   - rbac.yaml
   - https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml
+  - ingress.yaml
