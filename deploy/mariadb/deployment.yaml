@@ -19,8 +19,12 @@ spec:
           name: mariadb
           env:
             # Use secret in real usage
-            - name: MYSQL_ROOT_PASSWORD
+            - name: MARIADB_ROOT_PASSWORD
               value: pLV03aD!65mt
+            - name: MARIADB_PASSWORD
+              value: pLV03aD!65mt
+            - name: MARIADB_USER
+              value: maria-user
           ports:
             - containerPort: 8080
               name: mariadb
