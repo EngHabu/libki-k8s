@@ -15,7 +15,7 @@ spec:
         app: mariadb
     spec:
       containers:
-        - image: arm64v8/mariadb
+        - image: linuxserver/mariadb
           name: mariadb
           env:
             # Use secret in real usage
@@ -25,8 +25,22 @@ spec:
               value: pLV03aD!65mt
             - name: MARIADB_USER
               value: maria-user
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: MYSQL_ROOT_PASSWORD
+              value: pLV03aD!65mt
+            - name: TZ
+              value: America/Los_Angeles
+            # - name: MYSQL_DATABASE
+            #   value: USER_DB_NAME #optional
+            - name: MYSQL_USER
+              value: maria-user #optional
+            - name: MYSQL_PASSWORD
+              value: pLV03aD!65mt #optional
           ports:
-            - containerPort: 8080
+            - containerPort: 3306
               name: mariadb
           volumeMounts:
             - name: mariadb-persistent-storage
