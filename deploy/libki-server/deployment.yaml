@@ -5,10 +5,10 @@ metadata:
     name: libki-config
     namespace: libki
 data:
-    LIBKI_DB_DSN: dbi:mysql:libki;host=mysql;port=3306
-    LIBKI_DB_USER: root
+    LIBKI_DB_DSN: dbi:mysql:libki;host=mariadb.libki.svc.cluster.local;port=3306
+    LIBKI_DB_USER: maria-user
     LIBKI_DB_PASSWORD: "pLV03aD!65mt"
-    LIBKI_DB_HOST: mysql
+    LIBKI_DB_HOST: mariadb.libki.svc.cluster.local
     LIBKI_DB_PORT: "3306"
     LIBKI_DB_DATABASE: libki
     LIBKI_TZ: America/Los_Angeles
@@ -22,7 +22,7 @@ metadata:
     namespace: libki
 spec:
     ports:
-    - port: 443
+        - port: 443
     selector:
         app: libki
     clusterIP: None
@@ -45,17 +45,25 @@ spec:
         spec:
             containers:
                 - name: libki
-                  image: enghabu/libki-server:0.3
-                # image: libki/libki-server:latest
-                #   command:
-                #     - ./script/libki_server.pl
-                #   args:
-                #     - -p 
-                #     - "443"
+                  image: libki/libki-server
+                  resources:
+                      requests:
+                          memory: 100Mi
+                          cpu: 100m
+                      limits:
+                          memory: 500Mi
+                          cpu: 200m
+                  # image: libki/libki-server:latest
+                  #   command:
+                  #     - ./script/libki_server.pl
+                  #   args:
+                  #     - -p
+                  #     - "443"
                   envFrom:
-                  - configMapRef:
-                        name: libki-config
+                      - configMapRef:
+                            name: libki-config
                   ports:
-                  - containerPort: 443
-                    name: libki
+                      - containerPort: 443
+                        name: libki
 ---
+

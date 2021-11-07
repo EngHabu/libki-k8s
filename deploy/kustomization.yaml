@@ -3,7 +3,8 @@ kind: Kustomization
 
 bases:
     - dashboard/
-    - mysql/
+    # - mysql/
+    - mariadb/
     - libki-server/
 
 resources:
