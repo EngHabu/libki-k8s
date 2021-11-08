@@ -5,7 +5,7 @@ metadata:
     name: libki-config
     namespace: libki
 data:
-    LIBKI_DB_DSN: dbi:mysql:libki;host=mariadb.libki.svc.cluster.local;port=3306
+    LIBKI_DB_DSN: dbi:mysql:libki;host=mariadb.svc.cluster.local;port=3306
     LIBKI_DB_USER: maria-user
     LIBKI_DB_PASSWORD: "pLV03aD!65mt"
     LIBKI_DB_HOST: mariadb.libki.svc.cluster.local
