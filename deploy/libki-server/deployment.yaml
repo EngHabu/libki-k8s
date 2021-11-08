@@ -45,7 +45,7 @@ spec:
         spec:
             containers:
                 - name: libki
-                  image: libki/libki-server
+                  image: enghabu/libki-server:0.4
                   resources:
                       requests:
                           memory: 100Mi
