@@ -74,10 +74,49 @@ Follow the [guide here](https://medium.com/digital-software-architecture/raspber
 You have successfully installed k8s on your raspberry pi
 
 ## Installing Libki on k8s
-```bash
-kubectl apply -f https://raw.githubusercontent.com/EngHabu/libki-k8s/main/kustomize/k8s_generated.yaml
+**NOTE**
 
-kubectl wait --for=condition=available --all deployments --timeout=10m || ( echo >&2 "Timed out while waiting for the deployments to become ready"; exit 1 )
+If running on raspberry pi k3s, prefix all kubectl commands with ``sudo``
 
-kubectl rollout status --all
-```
+1. Run:
+   ```bash
+   kubectl apply -f https://raw.githubusercontent.com/EngHabu/libki-k8s/main/kustomize/k8s_generated.yaml
+
+   kubectl wait --for=condition=available --all deployments --timeout=10m || ( echo >&2 "Timed out while waiting for the deployments to become ready"; exit 1 )
+
+   kubectl rollout status --all
+   ```
+2. Create admin user:
+   a. Run:
+      ```bash
+      kubectl get pods -n libki
+      ```
+      And note the libki server's pod name
+   b. Run:
+      ```bash
+      kubectl exec -n libki <pod name> -- perl script/administration/create_user.pl -u admin -p password -s
+      ```
+3. Port forward the libki service to validate everything is fine:
+   ```bash
+   kubectl port-forward -n libki service/libki 10443:443
+   ```
+
+   Or if on RPI's k3s:
+   ```bash
+   sudo k3s kubectl port-forward -n libki service/libki 10443:443 --address 0.0.0.0
+   ```
+4. Visit [localhost](http://localhost:10443/administration) or [raspberry pi](http://raspberrypi:10443/administration) and login with ``admin`` and ``password``. 
+   
+   **NOTE**
+   
+   Make sure to change your password as soon as you login.
+
+**Congratulations**
+
+You have a running deployment of libki.
+
+## Follow-ups
+
+1. Set up ingress 
+2. Increase the number of replicas for the libki server
+3. Setup a cluster of Raspberry PIs to ensure the k8s cluster high-availability.
