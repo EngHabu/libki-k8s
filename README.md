@@ -119,4 +119,5 @@ You have a running deployment of libki.
 
 1. Set up ingress 
 2. Increase the number of replicas for the libki server
-3. Setup a cluster of Raspberry PIs to ensure the k8s cluster high-availability.
+3. Add kustomize overlays for beefier k8s deployments (more container resources... etc.)
+4. Setup a cluster of Raspberry PIs to ensure the k8s cluster high-availability.
