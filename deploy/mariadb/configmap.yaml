@@ -9,7 +9,6 @@ data:
   MARIADB_USER: maria-user
   MARIADB_ROOT_PASSWORD: pLV03aD65mt
   MARIADB_PASSWORD: pLV03aD65mt
-  MYSQL_USER: maria-user #optional
   MYSQL_ROOT_PASSWORD: pLV03aD65mt
   MYSQL_PASSWORD: pLV03aD65mt #optional
   TZ: America/Los_Angeles
