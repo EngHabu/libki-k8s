@@ -1,0 +1,55 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: libki-server-sync
+  namespace: libki
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: libki
+              image: enghabu/libki-server:0.4
+              command:
+                - ./script/cronjobs/libki.pl
+              resources:
+                requests:
+                  memory: 100Mi
+                  cpu: 100m
+                limits:
+                  memory: 500Mi
+                  cpu: 200m
+              envFrom:
+                - configMapRef:
+                    name: libki-config
+          restartPolicy: Never
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: libki-nightly
+  namespace: libki
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: libki
+              image: enghabu/libki-server:0.4
+              command:
+                - ./script/cronjobs/libki_nightly.pl
+              resources:
+                requests:
+                  memory: 100Mi
+                  cpu: 100m
+                limits:
+                  memory: 500Mi
+                  cpu: 200m
+              envFrom:
+                - configMapRef:
+                    name: libki-config
+          restartPolicy: Never
