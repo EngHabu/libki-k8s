@@ -4,7 +4,8 @@ metadata:
   name: server
   namespace: libki
   annotations:
-    # kubernetes.io/ingress.class: "traefik"
+    traefik.frontend.rule.type: PathPrefix
+    kubernetes.io/ingress.class: traefik
     # kubernetes.io/tls-acme: "true"
     # cert-manager.io/cluster-issuer: "letsencrypt-production"
     traefik.ingress.kubernetes.io/router.entrypoints: web
