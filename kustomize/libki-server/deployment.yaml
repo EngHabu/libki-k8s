@@ -22,7 +22,7 @@ metadata:
     namespace: libki
 spec:
     type: NodePort
-    clusterIP: 192.168.86.110
+    clusterIP: 10.43.0.4
     ports:
         - port: 443
           nodePort: 30004
