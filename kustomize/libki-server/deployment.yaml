@@ -21,8 +21,10 @@ metadata:
     name: libki
     namespace: libki
 spec:
+    type: NodePort
     ports:
         - port: 443
+          nodePort: 30004
     selector:
         app: libki
 ---
