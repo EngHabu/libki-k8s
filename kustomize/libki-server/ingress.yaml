@@ -5,21 +5,22 @@ metadata:
   name: server
   namespace: libki
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: "traefik"
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: "letsencrypt-production"
+    traefik.ingress.kubernetes.io/router.entrypoints: web
   labels:
     app: libki
 spec:
   rules:
-  - host: libki.afutuh.com
-    http:
-      paths:
-      - backend:
-          serviceName: libki
-          servicePort: 443
-        path: /  
-  tls:
-  - secretName: server-tls
-    hosts:
-    - libki.afutuh.com
+    # - host: libki.afutuh.com
+    - http:
+        paths:
+          - backend:
+              serviceName: libki
+              servicePort: 443
+            path: /
+  # tls:
+  #   - secretName: server-tls
+  #     hosts:
+  #       - libki.afutuh.com
