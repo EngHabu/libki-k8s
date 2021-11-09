@@ -1,25 +1,26 @@
----
-apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
+apiVersion: networking.k8s.io/v1
 metadata:
   name: server
   namespace: libki
   annotations:
-    kubernetes.io/ingress.class: "traefik"
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    # kubernetes.io/ingress.class: "traefik"
+    # kubernetes.io/tls-acme: "true"
+    # cert-manager.io/cluster-issuer: "letsencrypt-production"
     traefik.ingress.kubernetes.io/router.entrypoints: web
   labels:
     app: libki
 spec:
   rules:
-    # - host: libki.afutuh.com
     - http:
         paths:
-          - backend:
-              serviceName: libki
-              servicePort: 443
-            path: /
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: libki
+                port:
+                  number: 443
   # tls:
   #   - secretName: server-tls
   #     hosts:
